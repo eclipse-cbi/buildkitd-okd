@@ -27,11 +27,11 @@
           }
         },
         spec: {
-          serviceAccountName: "default",
+          serviceAccountName: "buildkitd-rootless",
           containers: [
             {
               name: "buildkitd",
-              image: "moby/buildkit:v0.9.3-rootless",
+              image: "moby/buildkit:rootless",
               args: [
                 "--addr",
                 "tcp://0.0.0.0:1234",
