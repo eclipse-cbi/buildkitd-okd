@@ -10,7 +10,7 @@
       namespace: "foundation-internal-infra-buildkitd",
     },
     spec: {
-      replicas: 1,
+      replicas: 5,
       selector: {
         matchLabels: {
           app: "buildkitd"
@@ -32,6 +32,16 @@
                 "--addr",
                 "tcp://0.0.0.0:1234",
               ],
+              resources: {
+                limits: {
+                  cpu: "4000m",
+                  memory: "8Gi",
+                },
+                requests: {
+                  cpu: "1000m",
+                  memory: "2Gi",
+                },
+              },
               readinessProbe: {
                 exec: {
                   command: [
