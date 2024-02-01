@@ -27,7 +27,7 @@
           containers: [
             {
               name: "buildkitd",
-              image: "moby/buildkit:latest",
+              image: "moby/buildkit:v0.12.5",
               args: [
                 "--addr",
                 "tcp://0.0.0.0:1234",
