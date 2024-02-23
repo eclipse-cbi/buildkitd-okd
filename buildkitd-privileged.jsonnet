@@ -37,7 +37,14 @@
           },
         },
         spec: {
+<<<<<<< HEAD
           serviceAccountName: 'buildkitd-privileged',
+=======
+          serviceAccountName: "buildkitd-privileged",
+          nodeSelector: {
+            "speed": "fast"
+          },
+>>>>>>> 812a256 (feat: target node fast node and allocate more resources)
           containers: [
             {
               name: 'buildkitd',
@@ -52,8 +59,13 @@
                   memory: '8Gi',
                 },
                 requests: {
+<<<<<<< HEAD
                   cpu: '2000m',
                   memory: '6Gi',
+=======
+                  cpu: "2000m",
+                  memory: "6Gi",
+>>>>>>> 812a256 (feat: target node fast node and allocate more resources)
                 },
               },
               readinessProbe: {
