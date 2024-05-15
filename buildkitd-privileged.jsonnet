@@ -76,8 +76,20 @@
                   containerPort: 1234
                 }
               ],
+              volumeMounts: [
+                {
+                  mountPath: "/var/lib/buildkit",
+                  name: "buildkit-root",
+                }
+              ],
             }
           ],
+          volumes: [
+            {
+              name: "buildkit-root",
+              emptyDir: {}
+            }
+          ]
         }
       }
     }
