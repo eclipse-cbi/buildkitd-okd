@@ -38,8 +38,8 @@
                   memory: "8Gi",
                 },
                 requests: {
-                  cpu: "1000m",
-                  memory: "2Gi",
+                  cpu: "2000m",
+                  memory: "6Gi",
                 },
               },
               readinessProbe: {
