@@ -19,7 +19,7 @@ if ! kubectl get namespace "${NS}" &> /dev/null; then
   kubectl create namespace "${NS}"
 fi
 kubectl patch namespace "${NS}" --type merge --patch '{"metadata":{"annotations":{"openshift.io/sa.scc.supplemental-groups":"1000/1", "openshift.io/sa.scc.uid-range": "1000/1"}}}'
-set -x
+
 if ! kubectl get serviceaccount "${SA}" -n "${NS}" &> /dev/null; then
   kubectl create serviceaccount "${SA}" -n "${NS}"
 fi
