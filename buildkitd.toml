@@ -1,0 +1,7 @@
+debug = true
+
+[log]
+  format = "text"
+
+[registry."docker.io"]
+  mirrors = ["docker-registry.eclipse.org"]
