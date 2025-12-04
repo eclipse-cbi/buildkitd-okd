@@ -45,7 +45,7 @@
           containers: [
             {
               name: 'buildkitd',
-              image: 'moby/buildkit:v0.13.2-rootless',
+              image: 'moby/buildkit:v0.26.2-rootless',
               args: [
                 '--addr',
                 'tcp://0.0.0.0:1234',

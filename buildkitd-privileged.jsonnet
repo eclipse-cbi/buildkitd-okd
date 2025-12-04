@@ -1,4 +1,4 @@
-[
+local buildkitConfigMap =
   {
     apiVersion: 'v1',
     kind: 'ConfigMap',
@@ -12,7 +12,10 @@
     data: {
       'buildkitd.toml': importstr 'buildkitd.toml',
     },
-  },
+  };
+
+
+local buildkitDeployment =
   {
     apiVersion: 'apps/v1',
     kind: 'Deployment',
@@ -41,7 +44,7 @@
           containers: [
             {
               name: 'buildkitd',
-              image: 'moby/buildkit:v0.13.2',
+              image: 'moby/buildkit:v0.26.2',
               args: [
                 '--addr',
                 'tcp://0.0.0.0:1234',
@@ -117,27 +120,69 @@
         },
       },
     },
-  },
-  {
-    apiVersion: 'v1',
-    kind: 'Service',
-    metadata: {
-      labels: {
-        app: 'buildkitd',
-      },
-      name: 'buildkitd',
-      namespace: 'foundation-internal-infra-buildkitd',
+  };
+
+local buildkitService = {
+  apiVersion: 'v1',
+  kind: 'Service',
+  metadata: {
+    labels: {
+      app: 'buildkitd',
     },
-    spec: {
-      ports: [
-        {
-          port: 1234,
-          protocol: 'TCP',
+    name: 'buildkitd',
+    namespace: 'foundation-internal-infra-buildkitd',
+  },
+  spec: {
+    ports: [
+      {
+        port: 1234,
+        protocol: 'TCP',
+      },
+    ],
+    selector: {
+      app: 'buildkitd',
+    },
+  },
+};
+
+local buildkitFastDeployment = buildkitDeployment {
+  metadata+: {
+    name: 'buildkitd-fast',
+  },
+  spec+: {
+    replicas: 1,
+    selector+: {
+      matchLabels+: {
+        app: 'buildkitd-fast',
+      },
+    },
+    template+: {
+      metadata: {
+        labels: {
+          app: 'buildkitd-fast',
         },
-      ],
-      selector: {
-        app: 'buildkitd',
+      },
+      spec+: {
+        nodeSelector+: {
+          speed: 'fast',
+        },
       },
     },
   },
-]
+};
+
+local buildkitFastService = buildkitService {
+  metadata+: {
+    labels+: {
+      app: 'buildkitd-fast',
+    },
+    name: 'buildkitd-fast',
+  },
+  spec+: {
+    selector+: {
+      app: 'buildkitd-fast',
+    },
+  },
+};
+
+[buildkitConfigMap, buildkitDeployment, buildkitService, buildkitFastDeployment, buildkitFastService]
